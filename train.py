@@ -1,20 +1,37 @@
-# Imports files ----------------------------------------------------------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------
+# Imports Starts here ----------------------------------------------------------
 %matplotlib inline
 %config InlineBackend.figure_format = 'retina'
 
 import numpy as np
 import matplotlib.pyplot as plt
-import torch
+import torchS
 from torch import nn
 from torch import optim
 import torch.nn.functional as F
 from torchvision import datasets, transforms, models
+from collections import OrderedDict
+#--------------------IMPORT ENDS HERE--------------------------------------
+#------------------------------------------------------------------------------
 
 def create_model(in):
     if in == 1:
         model = models.vgg19(pretrained=True)
+        S
+
     else:
         model = models.resnet34(pretrained=True)
+        for param in model.parameters():
+            param.requires_grad = False
+        classifier = nn.Sequential(OrderedDict([
+                          ('dropout1',nn.Dropout(0.4)),
+                          ('fc1', nn.Linear(512, 256)),
+                          ('relu', nn.ReLU()),
+                          ('fc2', nn.Linear(256, 102)),
+                          ('output', nn.LogSoftmax(dim=1))
+                          ]))
+        model.fc = classifier
+
     return(model)
 
 #saving directeries ----------------------------------------------------------------------------------------------------
