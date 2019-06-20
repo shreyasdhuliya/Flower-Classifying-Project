@@ -5,30 +5,30 @@ import predict
 #*********************************************MAIN FUNCTION-----------------------------------------------------------------
 #----------------------------------------------------------------------------------------------------------------------------
 def main():
-    create = 0
+    created = False #no medel created
     while True:
-        input = input('1.Create Model\n 2.Train An Exisiting Model\n 3.Predict Photo\n4.Exit\n\nPlease Type interger input: ')
+        input = input('1.Create and train Model\n 2.Predict Photo\n3.Exit\n\nPlease Type interger input: ')
         #
 
         if input == 1:
-            #create a pretrained model
+            #create and train  pretrained model
             while True:
-                type = input('\n1.Create using VGG19\n2.Create using ResNet34\n\nPlease type integer input: ')
+                type = input('\n1.Create and train using VGG19\n2.Create and train using ResNet34 \n\nPlease type integer input: ')
+                #Train.py if correct input break from the loop
                 check_choose(type)
-                model = create_model(type)
+                #train.py creating
+            model = create_train_model(type)
+            created = True #model created
             #Training
+        #Predict
         if input == 2:
-            While True:
-                choose = imput('1.\nTrain the newly created model\n2. Train an Existing model:(Please enter Interger Input)')
-                check_choose(choose)
-                if choose == 1 or choose ==2:
-                    create = 1
-                    model = train_model(model,choose)
-            #Predict
-        if input == 3:
-                predict()
+            while True:
+                type = input('\n1.Predict from new created model\n2.Predict using using a Pre-trained ResNet34 \n\nPlease type integer input: ')
+                #Train.py if correct input break from the loop
+                check_choose(type)
+                predict(model)
 
-        if input == 4:
+        if input == 3:
             print('Thanks for using Flower Image classifier')
             break
 
