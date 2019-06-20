@@ -1,11 +1,11 @@
 #----------------------------------------------------------------------------
 # Imports Starts here ----------------------------------------------------------
-%matplotlib inline
-%config InlineBackend.figure_format = 'retina'
+#%matplotlib inline
+#%config InlineBackend.figure_format = 'retina'
 
 import numpy as np
 import matplotlib.pyplot as plt
-import torchS
+import torch
 from torch import nn
 from torch import optim
 import torch.nn.functional as F
@@ -13,23 +13,10 @@ from torchvision import datasets, transforms, models
 from collections import OrderedDict
 #--------------------IMPORT ENDS HERE--------------------------------------
 #------------------------------------------------------------------------------
-#---------------------------------------------------------------------------
-#-------------------check functions Here----------------------------------
-def check_choose(in):
-    if in == 1 or in == 2:
-        return break
-    else:
-        print('Enter a corerct integer input!')
-
-def validate(epochs,lr):
-    if type(epochs) == int and epochs > 4 and type(lr) == float and lr > 0.05:
-        return break
-    else:
-        print('Please type epochs(int) less than 4 and lr(float) less than 0.05!')
 
 
 #Fuction creates a vgg19 or resnet34 and asks user for number of
-def create_train_model(in):
+def create_train_model(in_):
     '''
     This function creates a model with pretrained vgg19 or Resnet34
     The classifier is changed for 102 outputs
@@ -42,14 +29,19 @@ def create_train_model(in):
     Pretrained model with classifier mentioned
 
     '''
-    if in == 1:
+    if in_ == '1':
         model = models.vgg19(pretrained=True)
         while True:
-            hidden = imput('Choose number of hidden layer, Input layers 25088 and ouput layers 102:')
-            if type(hidden) == int and hidden < 4096 and hidden > 80:
-                break
-            else:
-                print('Please enter integer value between 80 and 4096!')
+            hidden = input('Choose number of hidden layer, Input layers 25088 and ouput layers 102:')
+            try:
+                hidden = int(hidden)
+                if hidden <= 4096 and hidden >= 80:
+                    break
+                else:
+                    print('\nPlease enter integer value between 80 and 4096!\n')
+            except ValueError:
+                print("\nNot an integer!\n")
+
         for param in model.parameters():
             param.requires_grad = False
         classifier = nn.Sequential(OrderedDict([
@@ -60,16 +52,20 @@ def create_train_model(in):
                           ('output', nn.LogSoftmax(dim=1))
                           ]))
         model.classifier = classifier
-        model = train_model(model,in)
+        model = train_model(model,in_)
 
     else:
         model = models.resnet34(pretrained=True)
         while True:
-            hidden = imput('Choose number of hidden layer, Input layers 512 and ouput layers 102:')
-            if type(hidden) == int and hidden < 512 and hidden > 80:
-                break
-            else:
-                print('Please enter integer value between 80 and 512!')
+            hidden = input('Choose number of hidden layer, Input layers 512 and ouput layers 102:')
+            try:
+                hidden = int(hidden)
+                if hidden <= 512 and hidden >= 80:
+                    break
+                else:
+                    print('\nPlease enter integer value between 80 and 512!\n')
+            except ValueError:
+                print("\nNot an integer!\n")
         for param in model.parameters():
             param.requires_grad = False
         classifier = nn.Sequential(OrderedDict([
@@ -80,15 +76,15 @@ def create_train_model(in):
                           ('output', nn.LogSoftmax(dim=1))
                           ]))
         model.fc = classifier
-        model = train_model(model,in)
+        model = train_model(model,in_)
 
     return(model)
 
-def train_model(model):
-    data_dir = 'flowers'
-    train_dir = data_dir + '/train'
-    valid_dir = data_dir + '/valid'
-    test_dir = data_dir + '/test'
+def train_model(model,in_):
+
+    train_dir = 'train'
+    valid_dir = 'valid'
+    test_dir = 'test'
 
     train_transforms = transforms.Compose([transforms.RandomRotation(30),
                                            transforms.RandomResizedCrop(224),
@@ -121,61 +117,82 @@ def train_model(model):
     while True:
         epochs = input('Enter the number of epochs:')
         lr = input('Enter the learning rate:')
-        validate(epochs,lr)
+        try:
+                epochs = int(epochs)
+                lr = float(lr)
+                if epochs < 4 and lr < 0.05:
+                    break
+                else:
+                    print('\nPlease enter epochs less than 4 and learning rate less than 0.05\n')
+        except ValueError:
+            print("\nNot an integer for epoch or float for learning rate!\n")
+
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+    print(device.type)
     criterion = nn.NLLLoss()
 
-    if in == 1:
+    if in_ == '1':
         optimizer = optim.Adam(model.classifier.parameters(), lr)
     else:
         optimizer = optim.Adam(model.fc.parameters(), lr)
 
-    model.to(device);
+    if device.type == 'cuda':
+        print("\n**********************************************")
+        print('Training model Please wait\n************************************************')
+        print('Printing trainng and validation loss\n\n')
 
-    steps = 0
-    running_loss = 0
-    print_every = 5
-    for epoch in range(epochs):
-        for inputs, labels in train_dataloaders:
-            steps += 1
-            # Move input and label tensors to the default device
-            inputs, labels = inputs.to(device), labels.to(device)
+        model.to(device);
+        steps = 0
+        running_loss = 0
+        print_every = 5
+        for epoch in range(epochs):
+            for inputs, labels in train_dataloaders:
+                steps += 1
+                # Move input and label tensors to the default device
+                inputs, labels = inputs.to(device), labels.to(device)
 
-            optimizer.zero_grad()
+                optimizer.zero_grad()
 
-            logps = model.forward(inputs)
-            loss = criterion(logps, labels)
-            loss.backward()
-            optimizer.step()
+                logps = model.forward(inputs)
+                loss = criterion(logps, labels)
+                loss.backward()
+                optimizer.step()
 
-            running_loss += loss.item()
-            
-            if steps % print_every == 0:
-                val_loss = 0
-                accuracy = 0
-                model.eval()
-                with torch.no_grad():
-                    for inputs, labels in val_dataloaders:
-                        inputs, labels = inputs.to(device), labels.to(device)
-                        logps = model.forward(inputs)
-                        batch_loss = criterion(logps, labels)
+                running_loss += loss.item()
 
-                        val_loss += batch_loss.item()
+                if steps % print_every == 0:
+                    val_loss = 0
+                    accuracy = 0
+                    model.eval()
+                    with torch.no_grad():
+                        for inputs, labels in val_dataloaders:
+                            inputs, labels = inputs.to(device), labels.to(device)
+                            logps = model.forward(inputs)
+                            batch_loss = criterion(logps, labels)
 
-                        # Calculate accuracy
-                        ps = torch.exp(logps)
-                        top_p, top_class = ps.topk(1, dim=1)
-                        equals = top_class == labels.view(*top_class.shape)
-                        accuracy += torch.mean(equals.type(torch.FloatTensor)).item()
+                            val_loss += batch_loss.item()
 
-                print(f"Epoch {epoch+1}/{epochs}.. "
-                      f"Train loss: {running_loss/print_every:.3f}.. "
-                      f"Validation loss: {val_loss/len(val_dataloaders):.3f}.. "
-                      f"Validation accuracy: {(accuracy/len(val_dataloaders))*100:.3f}")
-                running_loss = 0
-                model.train()
+                            # Calculate accuracy
+                            ps = torch.exp(logps)
+                            top_p, top_class = ps.topk(1, dim=1)
+                            equals = top_class == labels.view(*top_class.shape)
+                            accuracy += torch.mean(equals.type(torch.FloatTensor)).item()
+
+                    print(f"Epoch {epoch+1}/{epochs}.. "
+                          f"Train loss: {running_loss/print_every:.3f}.. "
+                          f"Validation loss: {val_loss/len(val_dataloaders):.3f}.. "
+                          f"Validation accuracy: {(accuracy/len(val_dataloaders))*100:.3f}")
+                    running_loss = 0
+                    model.train()
+            print('model trained with accuracy' + str(accuracy/len(val_dataloaders) + 'epochs' + str(epochs))
+        return model
+
+    else:
+        print('\nCuda not enabled. Please enable cuda and run again')
+        print('***************Model not trained******************')
+        print('*******Create and Train After enabling GPU********')
+        return model
 
 
 

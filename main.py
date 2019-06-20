@@ -15,7 +15,8 @@ def main():
             while True:
                 type = input('\n1.Create and train using VGG19\n2.Create and train using ResNet34 \n\nPlease type integer input: ')
                 #Train.py if correct input break from the loop
-                check_choose(type)
+                if check_choose(type):
+                    break
                 #train.py creating
             model = create_train_model(type)
             created = True #model created
@@ -25,8 +26,9 @@ def main():
             while True:
                 type = input('\n1.Predict from new created model\n2.Predict using using a Pre-trained ResNet34 \n\nPlease type integer input: ')
                 #Train.py if correct input break from the loop
-                check_choose(type)
-                predict(model)
+                if check_choose(type):
+                    break
+            predict(model)
 
         if input == 3:
             print('Thanks for using Flower Image classifier')
