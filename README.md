@@ -61,11 +61,11 @@
     - ValueError - If the user does not provide correct input type
  
  ### Application output
- Case 1: Training a new model and predicting
+ **Case 1:** Training a new model and predicting
  
   <img src="image1.png" width="1000" title="option1">
  
- Case 2: Predicting using loading model checkpoint
+ **Case 2:** Predicting using loading model checkpoint
  
   <img src="image2.png" width="1000" title="output2">
  
