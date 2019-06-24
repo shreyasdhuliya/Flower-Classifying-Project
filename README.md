@@ -40,14 +40,13 @@
  `main.py` gives an interface to call functions from train.py for training model and predict.py to call
  functions for predicting image after training.
  
- train.py
+ `train.py`
  - Prints out training loss, validation loss, and validation accuracy as the network trains
  - User inputs for hyperparameters - epochs, learning rate and hidden nodes
  - Option to choose between REstnet34 and vgg19 model
  
- predict.py
+ `predict.py`
  - Return top KK most likely classes.
- - 
  
  ### Running Application
  in cmd
