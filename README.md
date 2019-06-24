@@ -1,6 +1,6 @@
 # Deep Learning Project
 # Flower Image Classifier, Transfer Learning
-## Developing and AI Application, 102 Flower Classification
+## Developing an AI Application, 102 Flower Classification
 ### Requires GPU environment
 
 ### Installation
@@ -32,7 +32,7 @@
  7. Checking class with probabilities of input image
  
  #### Output
- <img src="output" width="1000" title="output">
+ <img src="image.png" width="1000" title="output">
  
  ### Application
  `train.py`, will train a new network on a dataset and save the model as a checkpoint.
@@ -50,6 +50,7 @@
  - 
  
  ### Running Application
+ in cmd
  
  ```bash
  python main.py
