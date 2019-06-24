@@ -1,4 +1,4 @@
-# Deep Learning Project
+# Deep Learning Udacity Project
 # Flower Image Classifier, Transfer Learning
 ## Developing an AI Application, 102 Flower Classification
 ### Requires GPU environment
