@@ -62,8 +62,10 @@
  
  ### Application output
  Case 1: Training a new model and predicting
+ 
   <img src="image1.png" width="1000" title="option1">
  
  Case 2: Predicting using loading model checkpoint
+ 
   <img src="image2.png" width="1000" title="output2">
  
