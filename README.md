@@ -4,7 +4,7 @@
 ### Requires GPU environment
 
 ### 1. View Report: Image Classifier Project.ipynb
-### 2. Run `main.py` to train a model and predict an image- `train.py` and `predict.py` contains functions to train and predict from a model. 
+### 2. Run `main.py` to train a model and predict an image- `train.py` and `predict.py` contains functions to train and predict from a model. `checkpoint.pth` contains trained RestNet34 model to predict flowers 
 
 ### Installation
 1. **Python 3.6**  and libraries
@@ -53,6 +53,9 @@
  
  `cat_to_name.json`
  - Contains category number and its respective category name
+ 
+ `checkpoint.pth`
+ - Contains a Pretrained RestNet34 Model to predict flowers
  
  ### Running Application
  in cmd
