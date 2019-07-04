@@ -3,8 +3,8 @@
 ## Developing an AI Application, 102 Flower Classification
 ### Requires GPU environment
 
-## 1. View Report: Image Classifier Project.ipynb
-## 2. Run Application On Git Bash to train and predict an image- `main.py`. `train.py` and `predict.py` contains functions to train and predict from a model. 
+### 1. View Report: Image Classifier Project.ipynb
+### 2. Run `main.py` to train a model and predict an image- `train.py` and `predict.py` contains functions to train and predict from a model. 
 
 ### Installation
 1. **Python 3.6**  and libraries
