@@ -4,7 +4,7 @@
 ### Requires GPU environment
 
 ### 1. View Report: Image Classifier Project.ipynb
-### 2. Run `main.py` to train a model and predict an image- `train.py` and `predict.py` contains functions to train and predict from a model. `checkpoint.pth` contains trained RestNet34 model to predict flowers 
+### 2. For Application run `main.py` to train a model and predict an image- `train.py` and `predict.py` contains functions to train and predict from a model. `checkpoint.pth` contains trained RestNet34 model to predict flowers 
 
 ### Installation
 1. **Python 3.6**  and libraries
@@ -35,7 +35,7 @@
  7. Checking class with probabilities of input image
  
  #### Output
- <img src="image.png" width="1000" title="output">
+ <img src="res_readme/output.png" width="1000" title="output">
  
  ## 2. Application
  `train.py`, will train a new network on a dataset and save the model as a checkpoint.
@@ -72,9 +72,9 @@
  ### Application output
  **Case 1:** Training a new model and predicting
  
-  <img src="image1.png" width="1000" title="option1">
+  <img src="res_readme/app_example1.png" width="1000" title="option1">
  
  **Case 2:** Predicting using loading model checkpoint
  
-  <img src="image2.png" width="1000" title="output2">
+  <img src="res_readme/app_example2.png" width="1000" title="output2">
  
