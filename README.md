@@ -3,6 +3,9 @@
 ## Developing an AI Application, 102 Flower Classification
 ### Requires GPU environment
 
+## 1. View Report: Image Classifier Project.ipynb
+## 2. Run Application On Git Bash to train and predict an image- `main.py`. `train.py` and `predict.py` contains functions to train and predict from a model. 
+
 ### Installation
 1. **Python 3.6**  and libraries
  - [Numpy](http://www.numpy.org/)
@@ -15,14 +18,14 @@
  - [PyTorch, TorchVission](https://pytorch.org/get-started/locally/)
  
  ### Transfer Learning
- Model trained on one task is re-purposed on another related task. 
- 
+ REstNet34 Model trained on one task is re-purposed on another related task to classify 102 flowers.
+  
   ### Resources
- - Train, Test and Validation Flower folder
- https://github.com/udacity/aipnd-project
+ - [Train, Test and Validation Flower folder](https://github.com/udacity/aipnd-project)
  - Json File, Category label to category name. 
  
- ### Code
+ ## 1. Image Classifier Project Notebook
+ ###  Code
  1. Load and transform training, testing and vlidation images in batch.
  2. Load Torchvission model RestNet34.
  3. Re-defining classifer for RestNet34 model using Torch **nn** module
@@ -34,7 +37,7 @@
  #### Output
  <img src="image.png" width="1000" title="output">
  
- ### Application
+ ## 2. Application
  `train.py`, will train a new network on a dataset and save the model as a checkpoint.
  The second file, `predict.py`, uses a trained network to predict the class for an input image.
  `main.py` gives an interface to call functions from train.py for training model and predict.py to call
@@ -47,6 +50,9 @@
  
  `predict.py`
  - Return top KK most likely classes.
+ 
+ `cat_to_name.json`
+ - Contains category number and its respective category name
  
  ### Running Application
  in cmd
