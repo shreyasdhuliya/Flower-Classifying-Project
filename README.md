@@ -3,7 +3,7 @@
 ## Developing an AI Application, 102 Flower Classification
 ### Requires GPU environment
 
-#### 1. View Report: Image Classifier Project.ipynb
+#### 1. [Click here to View Report](https://github.com/shreyasdhuliya/Image-Classifier-Project/blob/master/Image%20Classifier%20Project.ipynb)
 #### 2. For Application run `main.py` to train a model and predict an image- `train.py` and `predict.py` contains functions to train and predict from a model. `checkpoint.pth` contains trained RestNet34 model to predict flowers 
 
 ### Installation
